@@ -1,0 +1,18 @@
+.popup__close-button_type_image {
+    width: 20px;
+    height: 20px;
+    align-self: flex-end;
+    right: 37px;
+    top: 100px;
+    background-size: 20px;
+}
+
+@media screen and (min-width: 720px) {
+    .popup__close-button_type_image {
+        width: 32px;
+        height: 32px;
+        background-size: 32px;
+        top: 50px;
+        right: 0px;
+    }
+}

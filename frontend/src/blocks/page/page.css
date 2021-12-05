@@ -1,0 +1,12 @@
+.page {
+    min-height: 100vh;
+    background-color: rgba(0, 0, 0, 1);
+    font-family: 'Inter', 'Verdana', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    color: #FFFFFF;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-width: 320px;
+}

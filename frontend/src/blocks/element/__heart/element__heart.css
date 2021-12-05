@@ -1,0 +1,14 @@
+.element__heart {
+    display: block;
+    width: 22px;
+    height: 19px;
+    align-self: center;
+    margin-left: auto;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.element__heart:hover {
+    opacity: 0.6;
+}

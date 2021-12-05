@@ -1,0 +1,7 @@
+.element__heading {
+    border-radius: 0px 0px 20px 20px;
+    background-color: white;
+    padding: 25px 20px;
+    display: flex;
+    justify-content: space-between;
+}

@@ -1,0 +1,37 @@
+ .popup__error {
+     display: block;
+     font-size: 12px;
+     line-height: 15px;
+     color: #e53e3e;
+     opacity: 1;
+     position: absolute;
+     top: 49%;
+     left: 0;
+     transition: opacity 0.3s;
+     margin-left: 25px;
+ }
+ 
+ .popup__error:nth-of-type(2n) {
+     display: block;
+     font-size: 12px;
+     line-height: 15px;
+     color: #e53e3e;
+     opacity: 1;
+     position: absolute;
+     top: 66%;
+     left: 0;
+     transition: opacity 0.3s;
+     margin-left: 25px;
+ }
+ 
+ @media screen and (min-width: 720px) {
+     .popup__error {
+         margin-left: 35px;
+     }
+ }
+ 
+ @media screen and (min-width: 720px) {
+     .popup__error:nth-of-type(2n) {
+         margin-left: 35px;
+     }
+ }
