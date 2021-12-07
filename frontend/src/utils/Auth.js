@@ -9,22 +9,43 @@ const resStatus = (res) => {
 
 export const register = (password, email) => {
     return fetch(`${BASE_URL}/signup`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ password, email }),
-    }).then(resStatus);
+            method: "POST",
+            credentials: 'include',
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('token')}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                password,
+                email,
+            }),
+        })
+        .then((response) => {
+            return resStatus(response);
+        })
+        .then((data) => {
+            return data;
+        });
 };
 
-export const authorize = (password, email) => {
+export const authorize = (email, password) => {
     return fetch(`${BASE_URL}/signin`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ password, email }),
-    }).then(resStatus);
+            method: "POST",
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('token')}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                password,
+                email,
+            }),
+        })
+        .then((response) => {
+            return resStatus(response);
+        })
+        .then((data) => {
+            return data;
+        });
 };
 
 export const getContent = (token) => {

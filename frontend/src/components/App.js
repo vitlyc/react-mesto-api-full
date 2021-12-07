@@ -259,7 +259,7 @@ function App(props) {
                             onCardClick={handleCardClick} card={selectedCard} onCardLike={handleCardLike} onCardDelete={handleCardDelete} onSignOut={onSignOut} />
                         <Route path="/sign-up">
                             <Register onReg={onReg} onInfoTool={setIsInfoToolTipOpen} setResStatus={setResStatus}>
-                                <p className="auth__span">Уже зарегистрированы?<Link className="auth__span auth__link" to="/sign-in">  Войти</Link></p>
+                                <p className="auth__span">Вы Уже зарегистрированы?<Link className="auth__span auth__link" to="/sign-in">  Войти</Link></p>
                             </Register>
                         </Route>
                         <Route path="/sign-in">
