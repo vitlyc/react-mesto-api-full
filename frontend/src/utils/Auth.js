@@ -1,4 +1,4 @@
-export const BASE_URL = "http://api.privetik.nomoredomain.nomoredomains.rocks";
+export const BASE_URL = "https://api.privetik.nomoredomain.nomoredomains.rocks";
 
 const resStatus = (res) => {
     if (!res.ok) {

@@ -75,7 +75,7 @@
 
 
  const api = new Api({
-     baseUrl: 'http://api.privetik.nomoredomain.nomoredomains.rocks',
+     baseUrl: 'https://api.privetik.nomoredomain.nomoredomains.rocks',
      headers: {
          'Content-Type': 'application/json'
      },
