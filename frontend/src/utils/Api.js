@@ -75,8 +75,9 @@
 
 
  const api = new Api({
-     baseUrl: 'https://api.privetik.nomoredomain.nomoredomains.rocks',
+     baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-27',
      headers: {
+         'authorization': '75a4d77e-dc39-4d34-8088-d75cda9dec2f',
          'Content-Type': 'application/json'
      },
  });

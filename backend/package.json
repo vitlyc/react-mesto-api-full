@@ -6,7 +6,9 @@
     "scripts": {
         "lint": "npx eslint .",
         "start": "node app.js",
-        "dev": "nodemon app.js"
+        "dev": "nodemon app.js",
+        "deploy": "scp -r app.js praktikum@51.250.18.100:/home/praktikum/react-mesto-api-full/backend/"
+
     },
     "repository": {
         "type": "git",
@@ -23,8 +25,12 @@
         "bcryptjs": "^2.4.3",
         "body-parser": "^1.19.0",
         "celebrate": "^15.0.0",
+        "cookie-parser": "^1.4.5",
+        "cors": "^2.8.5",
+        "dotenv": "^10.0.0",
         "express": "^4.17.1",
         "express-winston": "^4.2.0",
+        "helmet": "^4.6.0",
         "jsonwebtoken": "^8.5.1",
         "mongoose": "^6.0.12",
         "validator": "^13.7.0",
