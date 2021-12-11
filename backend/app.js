@@ -1,16 +1,18 @@
 /* eslint-disable no-console */
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const { celebrate, Joi, errors } = require('celebrate');
 const bodyParser = require('body-parser');
 const usersRouter = require('./routes/users');
 const cardsRouter = require('./routes/cards');
-const cors = require('./middlewares/cors')
+const helmet = require('helmet');
+const cors = require('cors');
 const { createUser, login } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const NotFound = require('./errors/NotFound');
 const { requestLogger, errorLogger } = require('./middlewares/Logger');
-
+const rateLimit = require('express-rate-limit');
 const { PORT = 3000 } = process.env;
 
 const app = express();
@@ -20,19 +22,39 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 
 });
 
-app.use(cors)
+const options = {
+  origin: [
+    'https://localhost:3001',
+    'http://localhost:3001',
+    'https://privetik.nomoredomains.rocks',
+    'http://privetik.nomoredomains.rocks'
+  ],
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+  allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
+  credentials: true,
+};
+
+app.use('*', cors(options));
 
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use(helmet());
 app.use(requestLogger); //логгер
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  message: 'Too many requests, please try again later.',
+});
 
+app.use(limiter);
 app.post('/signin',
     celebrate({
         body: Joi.object().keys({
             email: Joi.string().required().email(),
-            password: Joi.string().required().min(8),
+            password: Joi.string().required().min(5),
         }),
     }),
     login);
@@ -40,7 +62,7 @@ app.post('/signup',
     celebrate({
         body: Joi.object().keys({
             email: Joi.string().required().email(),
-            password: Joi.string().required().min(8),
+            password: Joi.string().required().min(5),
             name: Joi.string().min(2).max(30),
             about: Joi.string().min(2).max(30),
             avatar: Joi.string().pattern(

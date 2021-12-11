@@ -9,7 +9,11 @@ function Card(props) {
 
     const currentUser = React.useContext(CurrentUserContext);
     const isOwn = props.card.owner._id === currentUser.userId;
-    const isLiked = props.card.likes.some((i) => i._id === currentUser.userId);
+    console.log(props.card.owner);
+    console.log(currentUser.userId);
+    console.log(isOwn);
+    console.log(currentUser);
+    const isLiked = props.card.likes.some((i) => i === currentUser.userId);
 
     // const Heart = () => (
     //     <RiHeartFill type="button" className= "element__heart" color={isLiked ? "black" : "#dcdcdc"} size='25px' onClick={() => {
@@ -25,10 +29,10 @@ function Card(props) {
             <div className="element__heading">
                 <p className="element__title">{props.card.name}</p>
                 <div className="element__container">
-                    <button className={isLiked ? "element__heart element__heart_active" : "element__heart element__heart_disabled"} 
-                    type="button" onClick={() => {
-                        props.onCardLike(props.card)
-                    }}></button>
+                    <button className={isLiked ? "element__heart element__heart_active" : "element__heart element__heart_disabled"}
+                        type="button" onClick={() => {
+                            props.onCardLike(props.card)
+                        }}></button>
                     {/* <Heart /> */}
                     <p className='element__counter'>{props.card.likes.length}</p>
                 </div>

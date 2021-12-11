@@ -24,7 +24,7 @@ import InfoToolTip from './InfoToolTip';
 // 12345
 
 function App(props) {
-   
+
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
     const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
     const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
@@ -88,7 +88,7 @@ function App(props) {
         history.push("/sign-in");
     };
 
-    
+
     function handleEditProfileClick() {
         setIsEditProfilePopupOpen(true);
     };
@@ -110,13 +110,13 @@ function App(props) {
         setIsImagePopupOpen(false);
         setIsInfoToolTipOpen(false);
     };
-    
+
     const [userInfo, setUserInfo] = React.useState({});
     const [cards, setCards] = React.useState([]);
-   const [resStatus, setResStatus] = React.useState(false);
+    const [resStatus, setResStatus] = React.useState(false);
     // console.log(userInfo);
     React.useEffect(() => {
-        
+
         Promise.all([api.getUserInfo(), api.getInitialCards()])
             .then(([userData, initialCards]) => {
                 setUserInfo({
@@ -147,35 +147,35 @@ function App(props) {
 
 
     function handleCardLike(card) {
-        // console.log('hi');
+        console.log('hi');
         const isLiked = card.likes.some((i) => i._id === userInfo.userId);
-
-        api.likeCard(card._id, isLiked)
-        .then((newCard) => {
-            setCards((cards) => cards.map((c) => (c._id === card._id ? newCard : c)));
-        })
-        .catch((err) => {
+        console.log(isLiked);
+        api.likeCard(card._id, !isLiked)
+            .then((newCard) => {
+                setCards((cards) => cards.map((c) => (c._id === card._id ? newCard : c)));
+            })
+            .catch((err) => {
                 console.log(err);
-        });
-        
+            });
+
     };
 
     function handleCardDelete(card) {
         api.deleteCard(card._id)
-        .then(() => {
-            setCards((cards) => cards.filter((c) => c._id !== card._id));
-        })
-        .catch((err) => {
+            .then(() => {
+                setCards((cards) => cards.filter((c) => c._id !== card._id));
+            })
+            .catch((err) => {
                 console.log(err);
-        });
-        
+            });
+
     };
 
     function handleUpdateUser(userData) {
-        
+
         api.updateUserInfo(userData)
             .then((userData) => {
-               
+
                 setUserInfo({
                     userName: userData.name,
                     userDescription: userData.about,
@@ -187,10 +187,11 @@ function App(props) {
             .catch((err) => {
                 console.log(err);
             });
+        console.log(userInfo)
     };
 
     function handleUpdateavatar(userData) {
-       
+
         api.setAvatar(userData.avatar)
             .then((userData) => {
                 setUserInfo({
@@ -244,31 +245,31 @@ function App(props) {
         }
     }
 
-   
+
     return ((
         <div className="page">
             <CurrentUserContext.Provider value={userInfo}>
-                    <Header>
-                        {headerLogStatus()}
-                        </Header>
-                    <Switch>
-                        <ProtectedRoute 
+                <Header>
+                    {headerLogStatus()}
+                </Header>
+                <Switch>
+                    <ProtectedRoute
                         path="/main"
-                            loggedIn={loggedIn}
+                        loggedIn={loggedIn}
                         component={Main} cards={cards} onEditProfile={handleEditProfileClick} isAddPlacePopupOpen={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick}
-                            onCardClick={handleCardClick} card={selectedCard} onCardLike={handleCardLike} onCardDelete={handleCardDelete} onSignOut={onSignOut} />
-                        <Route path="/sign-up">
-                            <Register onReg={onReg} onInfoTool={setIsInfoToolTipOpen} setResStatus={setResStatus}>
-                                <p className="auth__span">Уже зарегистрированы?<Link className="auth__span auth__link" to="/sign-in">  Войти</Link></p>
-                            </Register>
-                        </Route>
-                        <Route path="/sign-in">
-                            <Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} onLog={onLog} />
-                        </Route>
-                        <Route>
-                            {loggedIn ? (<Redirect to="/main" />) : (<Redirect to="/sign-in" />)}
-                        </Route>
-                    </Switch>
+                        onCardClick={handleCardClick} card={selectedCard} onCardLike={handleCardLike} onCardDelete={handleCardDelete} onSignOut={onSignOut} />
+                    <Route path="/sign-up">
+                        <Register onReg={onReg} onInfoTool={setIsInfoToolTipOpen} setResStatus={setResStatus}>
+                            <p className="auth__span">Уже зарегистрированы?<Link className="auth__span auth__link" to="/sign-in">  Войти</Link></p>
+                        </Register>
+                    </Route>
+                    <Route path="/sign-in">
+                        <Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} onLog={onLog} />
+                    </Route>
+                    <Route>
+                        {loggedIn ? (<Redirect to="/main" />) : (<Redirect to="/sign-in" />)}
+                    </Route>
+                </Switch>
 
                 <ImagePopup card={selectedCard} isOpen={isImagePopupOpen} closeAllPopups={closeAllPopups} />
 
@@ -281,9 +282,9 @@ function App(props) {
                 <PopupWithForm name="approval" title="Вы уверены?" buttonName="Да" isOpen={false} />
 
                 <InfoToolTip isOpen={isInfoToolTipOpen} closeAllPopups={closeAllPopups} resStatus={resStatus} />
-                
-                    <Footer />
-               
+
+                <Footer />
+
             </CurrentUserContext.Provider>
         </div>
     ));
