@@ -1,5 +1,3 @@
-require('dotenv').config();
-
  class Api {
      constructor(config) {
          this._baseUrl = config.baseUrl;
@@ -9,7 +7,7 @@ require('dotenv').config();
      getInitialCards() {
          return fetch(`${this._baseUrl}/cards`, {
                  method: "GET",
-             headers: this._headers,
+                 headers: this._headers,
              })
              .then(this._checkStatusOK);
      }
@@ -17,14 +15,14 @@ require('dotenv').config();
      getUserInfo() {
          return fetch(`${this._baseUrl}/users/me`, {
                  method: "GET",
-             headers: this._headers,
+                 headers: this._headers,
              })
              .then(this._checkStatusOK);
      }
      updateUserInfo(user) {
          return fetch(`${this._baseUrl}/users/me`, {
                  method: "PATCH",
-             headers: this._headers,
+                 headers: this._headers,
                  body: JSON.stringify(user)
              })
              .then(this._checkStatusOK);
@@ -32,7 +30,7 @@ require('dotenv').config();
      deleteCard(cardId) {
          return fetch(`${this._baseUrl}/cards/${cardId}`, {
                  method: "DELETE",
-             headers: this._headers,
+                 headers: this._headers,
              })
              .then(this._checkStatusOK);
      }
@@ -49,16 +47,16 @@ require('dotenv').config();
      }
 
      likeCard(cardId, isLiked) {
-         return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-             method: `${isLiked ? 'PUT' : 'DELETE'}`,
-             headers: this._headers,
+         return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+                 method: isLiked ? "DELETE" : "PUT",
+                 headers: this._headers,
              })
              .then(this._checkStatusOK);
      }
      createNewCard({ name, link }) {
          return fetch(`${this._baseUrl}/cards`, {
                  method: "POST",
-             headers: this._headers,
+                 headers: this._headers,
                  body: JSON.stringify({
                      name: name,
                      link: link
@@ -76,14 +74,12 @@ require('dotenv').config();
  }
 
 
-const api = new Api({
-    baseUrl: "https://api.privetik.nomoredomain.nomoredomains.rocks",
-    headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'authorization': `Bearer ${localStorage.getItem("jwt")}`,
-    },
-});
+ const api = new Api({
+     baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-27',
+     headers: {
+         'authorization': '75a4d77e-dc39-4d34-8088-d75cda9dec2f',
+         'Content-Type': 'application/json'
+     },
+ });
 
  export default api;
- 

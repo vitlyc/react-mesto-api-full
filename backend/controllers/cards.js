@@ -1,5 +1,5 @@
 const card = require('../models/cards');
-const { ObjectId } = require('mongodb');
+
 const NotFound = require('../errors/NotFound');
 const BadRequest = require('../errors/BadRequest');
 const Forbidden = require('../errors/Forbidden');
@@ -28,12 +28,11 @@ module.exports.createCard = (req, res, next) => {
     });
 };
 module.exports.likeCard = (req, res, next) => {
-  console.log(req.params);
   card
     .findByIdAndUpdate(
       req.params.cardId, {
-      $addToSet: { likes: req.user._id },
-    },
+        $addToSet: { likes: req.user._id },
+      },
       // eslint-disable-next-line comma-dangle
       { new: true }
     )
@@ -57,8 +56,8 @@ module.exports.dislikeCard = (req, res, next) => {
   card
     .findByIdAndUpdate(
       req.params.cardId, {
-      $pull: { likes: req.user._id },
-    },
+        $pull: { likes: req.user._id },
+      },
 
       { new: true },
     )
@@ -79,18 +78,15 @@ module.exports.dislikeCard = (req, res, next) => {
     });
 };
 module.exports.deleteCard = (req, res, next) => {
-  const cardid = req.params.cardId// находит по ид
-  console.log(req.params.cardId);
-  console.log(req.user);
-  card.findById(cardid)
+  const { id } = req.params;
+  const ownerId = req.user._id;
+  card.findById(id)
     .orFail(() => {
       throw new NotFound('Нет карточки по заданному id');
     })
     .then((item) => {
-      console.log(item);
-      console.log(item._id.toString() === req.params.cardId);
-      if (item._id.toString() === req.params.cardId) {
-        card.deleteOne(item).then(() => {
+      if (ownerId.toString() === item.owner._id.toString()) {
+        card.deleteOne(card).then(() => {
           res.send({ data: card });
         });
       } else {
