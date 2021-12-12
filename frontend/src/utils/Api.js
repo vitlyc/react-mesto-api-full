@@ -19,11 +19,15 @@
              })
              .then(this._checkStatusOK);
      }
-     updateUserInfo(user) {
+     updateUserInfo(userData) {
          return fetch(`${this._baseUrl}/users/me`, {
                  method: "PATCH",
                  headers: this._headers,
-                 body: JSON.stringify(user)
+                
+                 body: JSON.stringify({
+                     name: userData.name,
+                     about: userData.about
+                 })
              })
              .then(this._checkStatusOK);
      }

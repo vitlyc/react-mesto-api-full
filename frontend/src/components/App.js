@@ -176,15 +176,13 @@ function App(props) {
     };
 
     function handleUpdateUser(userData) {
-        console.log(userData);
-        console.log(JSON.stringify(userData));
         api.updateUserInfo(userData)
             .then((userData) => {
                 setUserInfo({
-                    userName: userData.name,
-                    userDescription: userData.about,
-                    userAvatar: userData.avatar,
-                    userId: userData._id,
+                    userName: userData.data.name,
+                    userDescription: userData.data.about,
+                    userAvatar: userData.data.avatar,
+                    userId: userData.data._id,
                 });
                 closeAllPopups();
             })

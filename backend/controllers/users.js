@@ -90,27 +90,16 @@ module.exports.updateAvatar = (req, res, next) => {
 };
 module.exports.updateUserInfo = (req, res, next) => {
   const { name, about } = req.body;
-  User.findByIdAndUpdate(
-    req.user._id, {
-      name,
-      about,
-    },
-    // eslint-disable-next-line comma-dangle
-    { new: true, runValidators: true }
-  )
-    .orFail(new NotFound('NotFound'))
-    .then((item) => res.send({ data: item }))
+  const userId = req.user._id;
+
+  User.findByIdAndUpdate(userId, { name, about }, { new: true, runValidators: true })
+    .then((user) => res.send({ data: user }))
     .catch((err) => {
-      if (err.name === 'CastError') {
-        next(new BadRequest('Нет такого пользователя'));
-      } else if (err.name === 'ValidationError') {
-        next(new BadRequest('Неверные данные'));
-      } else if (err.message === 'NotFound') {
-        next(new NotFound('Нет такого пользователя'));
-      } else {
-        next(err);
+      if (err.name === 'ValidationError') {
+        throw new BadRequest(err.message);
       }
-    });
+    })
+    .catch(next);
 };
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;

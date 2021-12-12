@@ -20,7 +20,6 @@ function EditProfilePopup(props) {
          setName(e.target.value);
     }
     function handleChangeDescription(e) {
-        console.log(e.target.value);
          setDescription(e.target.value);
     }
     function handleSubmit(e) {
