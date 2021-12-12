@@ -8,15 +8,11 @@ function Card(props) {
     }
 
     const currentUser = React.useContext(CurrentUserContext);
-    const isOwn = props.card.owner._id === currentUser.userId;
-    const isLiked = props.card.likes.some((i) => i._id === currentUser.userId);
-
-    // const Heart = () => (
-    //     <RiHeartFill type="button" className= "element__heart" color={isLiked ? "black" : "#dcdcdc"} size='25px' onClick={() => {
-    //         props.onCardLike(props.card)
-    //     }}/>
-    // );
-
+    const isOwn = props.card.owner === currentUser.userId;
+    const isLiked = props.card.likes.some((id) => id === currentUser.userId);
+    // console.log(currentUser.userId);
+    // console.log(props.card.owner);
+   
     return ((
         <li className="element">
             <img className="element__image" src={props.card.link} alt={props.card.name} onClick={handleClick} />

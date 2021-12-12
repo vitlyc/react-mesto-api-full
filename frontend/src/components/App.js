@@ -35,11 +35,16 @@ function App(props) {
     const [email, setEmail] = useState("");
     const [isInfoToolTipOpen, setIsInfoToolTipOpen] = React.useState(false);
 
+    const [userInfo, setUserInfo] = React.useState({});
+    const [cards, setCards] = React.useState([]);
+    const [resStatus, setResStatus] = React.useState(false);
+
     const auth = (jwt) => {
         return Auth.getContent(jwt).then((res) => {
             if (res) {
                 setLoggedIn(true);
-                setEmail(res.data.email);
+                
+                setEmail(res.email);
             }
         })
             .catch((err) => {
@@ -111,9 +116,7 @@ function App(props) {
         setIsInfoToolTipOpen(false);
     };
     
-    const [userInfo, setUserInfo] = React.useState({});
-    const [cards, setCards] = React.useState([]);
-   const [resStatus, setResStatus] = React.useState(false);
+    
     // console.log(userInfo);
     React.useEffect(() => {
         
@@ -126,6 +129,7 @@ function App(props) {
                     userId: userData._id
                 });
                 setCards(initialCards);
+                
             })
             .catch((err) => {
                 console.log(err);
@@ -148,7 +152,7 @@ function App(props) {
 
     function handleCardLike(card) {
         // console.log('hi');
-        const isLiked = card.likes.some((i) => i._id === userInfo.userId);
+        const isLiked = card.likes.some((id) => id === userInfo.userId);
 
         api.likeCard(card._id, isLiked)
         .then((newCard) => {
@@ -172,10 +176,10 @@ function App(props) {
     };
 
     function handleUpdateUser(userData) {
-        
+        console.log(userData);
+        console.log(JSON.stringify(userData));
         api.updateUserInfo(userData)
             .then((userData) => {
-               
                 setUserInfo({
                     userName: userData.name,
                     userDescription: userData.about,

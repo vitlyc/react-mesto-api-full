@@ -47,7 +47,8 @@
      }
 
      likeCard(cardId, isLiked) {
-         return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+         
+         return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
                  method: isLiked ? "DELETE" : "PUT",
                  headers: this._headers,
              })
@@ -75,10 +76,10 @@
 
 
  const api = new Api({
-     baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-27',
+     baseUrl: "http://localhost:3000",
      headers: {
-         'authorization': '75a4d77e-dc39-4d34-8088-d75cda9dec2f',
-         'Content-Type': 'application/json'
+         "Content-Type": "application/json",
+         "Authorization": `Bearer ${localStorage.getItem("jwt")}`
      },
  });
 

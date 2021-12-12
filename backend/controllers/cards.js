@@ -78,15 +78,14 @@ module.exports.dislikeCard = (req, res, next) => {
     });
 };
 module.exports.deleteCard = (req, res, next) => {
-  const { id } = req.params;
-  const ownerId = req.user._id;
-  card.findById(id)
+  const cardid = req.params.cardId// находит по ид
+  card.findById(cardid)
     .orFail(() => {
       throw new NotFound('Нет карточки по заданному id');
     })
     .then((item) => {
-      if (ownerId.toString() === item.owner._id.toString()) {
-        card.deleteOne(card).then(() => {
+      if (item._id.toString() === req.params.cardId) {
+        card.deleteOne(item).then(() => {
           res.send({ data: card });
         });
       } else {
