@@ -134,7 +134,7 @@ function App(props) {
             .catch((err) => {
                 console.log(err);
             });
-    }, []);
+    }, [loggedIn,history]);
 
     React.useEffect(() => {
         const closeByEscape = (e) => {

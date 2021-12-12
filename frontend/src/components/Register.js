@@ -46,7 +46,7 @@ const Register = ({ onReg, ...props }) => {
                 required value={emailInput} onChange={handleChangeEmailInput} />
             <input className="auth__input" type="text"
                 placeholder="Пароль"
-                minLength="2" maxLength="40"
+                minLength="8" maxLength="40"
                 required value={passwordInput} onChange={handleChangePasswordInput} />
             <button className="auth__confirm-button" type="submit">Зарегистрироваться</button>
             {props.children}

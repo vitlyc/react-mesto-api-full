@@ -6,7 +6,7 @@ const { celebrate, Joi, errors } = require('celebrate');
 const bodyParser = require('body-parser');
 const usersRouter = require('./routes/users');
 const cardsRouter = require('./routes/cards');
-
+require('dotenv').config();
 const { createUser, login } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const NotFound = require('./errors/NotFound');
@@ -24,6 +24,8 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 const options = {
   origin: [
         'http://localhost:3001',
+    'https://privetik.nomoredomains.rocks',
+    'http://privetik.nomoredomains.rocks'
   ],
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   preflightContinue: false,
