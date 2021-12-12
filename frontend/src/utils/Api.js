@@ -1,3 +1,5 @@
+require('dotenv').config();
+const BASE_URL = process.env.REACT_APP_URL
  class Api {
      constructor(config) {
          this._baseUrl = config.baseUrl;
@@ -80,7 +82,7 @@
 
 
  const api = new Api({
-     baseUrl: "http://localhost:3000",
+     baseUrl: BASE_URL,
      headers: {
          "Content-Type": "application/json",
          "Authorization": `Bearer ${localStorage.getItem("jwt")}`

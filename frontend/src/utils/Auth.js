@@ -1,4 +1,5 @@
-export const BASE_URL = "http://localhost:3000";
+require('dotenv').config();
+const BASE_URL = process.env.REACT_APP_URL
 
 const resStatus = (res) => {
     if (!res.ok) {

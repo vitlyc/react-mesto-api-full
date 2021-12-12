@@ -122,6 +122,7 @@ function App(props) {
         
         Promise.all([api.getUserInfo(), api.getInitialCards()])
             .then(([userData, initialCards]) => {
+                console.log(userData.name, userData.avatar );
                 setUserInfo({
                     userName: userData.name,
                     userDescription: userData.about,
@@ -134,7 +135,7 @@ function App(props) {
             .catch((err) => {
                 console.log(err);
             });
-    }, [loggedIn,history]);
+    }, [history]);
 
     React.useEffect(() => {
         const closeByEscape = (e) => {
@@ -192,14 +193,13 @@ function App(props) {
     };
 
     function handleUpdateavatar(userData) {
-       
-        api.setAvatar(userData.avatar)
+               api.setAvatar(userData.avatar)
             .then((userData) => {
                 setUserInfo({
-                    userName: userData.name,
-                    userDescription: userData.about,
-                    userAvatar: userData.avatar,
-                    userId: userData._id,
+                    userName: userData.data.name,
+                    userDescription: userData.data.about,
+                    userAvatar: userData.data.avatar,
+                    userId: userData.data._id,
                 });
                 closeAllPopups();
             })

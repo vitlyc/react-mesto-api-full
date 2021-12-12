@@ -9,7 +9,6 @@ module.exports = (req, res, next) => {
   if (!authorization || !authorization.startsWith('Bearer ')) {
     throw new Unauthorized('Нужна авторизация');
   }
-
   const token = getToken(authorization);
   let payload;
   try {

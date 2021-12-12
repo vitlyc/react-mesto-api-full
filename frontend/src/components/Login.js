@@ -43,11 +43,11 @@ const Login = ({ onLog, ...props }) => {
                 <input className="auth__input" type="email"
                     placeholder="Email"
                     required value={emailInput} onChange={handleChangeEmailInput}
-                    minLength="2" maxLength="40"
+                    minLength="8" maxLength="40"
                      />
                 <input className="auth__input" type="text"
                     placeholder="Пароль"
-                    minLength="2" maxLength="40"
+                    minLength="8" maxLength="40"
                     required value={passwordInput} onChange={handleChangePasswordInput} />
                 <button className="auth__confirm-button" type="submit">Войти</button>
                 {props.children}
